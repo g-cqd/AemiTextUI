@@ -5,10 +5,11 @@ Text rendering and text-view building blocks, extracted from [Atelier](../Atelie
 | Target | What |
 |---|---|
 | `AemiTextRendering` | The CoreText renderer: an immutable `StyledText` (UTF-8 bytes, row starts, style runs), `LayoutConfiguration`, a `HeightIndex` with O(log rows) queries, `TextTypesetter` (layout and tile rasterization off the main actor), decoration layers, bidi policy (the Trojan Source class is neutralized by default). Pure value types over CoreText and CoreGraphics. |
+| `AemiTextStyling` | `TextStorageStyler`: applies styles given as UTF-8 byte ranges (what a parser or lexer reports) to an `NSTextStorage` as attributes only, over a window, with the UTF-8 to UTF-16 conversion done once; the characters, selection and undo stack are untouched. AppKit. |
 | `AemiTextCanvas` | `TextCanvasView`, the `@MainActor` AppKit host: tiles as layers, the height index kept live, hit-testing. It knows nothing of diffs. |
 
 ```sh
-swift test          # 39 tests, about a second
+swift test          # 45 tests, about a second
 ```
 
 ## Where the code came from, and what changed

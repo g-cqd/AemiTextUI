@@ -17,7 +17,8 @@ let package = Package(
     platforms: [.macOS(.v15)],
     products: [
         .library(name: "AemiTextRendering", targets: ["AemiTextRendering"]),
-        .library(name: "AemiTextCanvas", targets: ["AemiTextCanvas"])
+        .library(name: "AemiTextCanvas", targets: ["AemiTextCanvas"]),
+        .library(name: "AemiTextStyling", targets: ["AemiTextStyling"])
     ],
     targets: [
         // The CoreText renderer's model, style sheets, height index, typesetting and tile rasterization: pure value types over CoreText and CoreGraphics. No AppKit, no tasks of its own.
@@ -32,6 +33,13 @@ let package = Package(
         .testTarget(
             name: "AemiTextCanvasTests",
             dependencies: ["AemiTextCanvas", "AemiTextRendering"],
+            swiftSettings: strictSettings
+        ),
+        // Applies styles (runs of UTF-8 byte ranges) to an NSTextStorage as attributes only: the characters, the selection and the undo stack are untouched. AppKit only.
+        .target(name: "AemiTextStyling", swiftSettings: strictSettings),
+        .testTarget(
+            name: "AemiTextStylingTests",
+            dependencies: ["AemiTextStyling"],
             swiftSettings: strictSettings
         )
     ]
