@@ -18,7 +18,8 @@ let package = Package(
     products: [
         .library(name: "AemiTextRendering", targets: ["AemiTextRendering"]),
         .library(name: "AemiTextCanvas", targets: ["AemiTextCanvas"]),
-        .library(name: "AemiTextStyling", targets: ["AemiTextStyling"])
+        .library(name: "AemiTextStyling", targets: ["AemiTextStyling"]),
+        .library(name: "AemiTextScroll", targets: ["AemiTextScroll"])
     ],
     targets: [
         // The CoreText renderer's model, style sheets, height index, typesetting and tile rasterization: pure value types over CoreText and CoreGraphics. No AppKit, no tasks of its own.
@@ -40,6 +41,13 @@ let package = Package(
         .testTarget(
             name: "AemiTextStylingTests",
             dependencies: ["AemiTextStyling"],
+            swiftSettings: strictSettings
+        ),
+        // The smooth, monotone map between two scroll coordinates anchored at the same blocks (an editor and its rendered page). Pure arithmetic: no AppKit, no SwiftUI.
+        .target(name: "AemiTextScroll", swiftSettings: strictSettings),
+        .testTarget(
+            name: "AemiTextScrollTests",
+            dependencies: ["AemiTextScroll"],
             swiftSettings: strictSettings
         )
     ]
